@@ -6,7 +6,7 @@ security:
         id: api_key_user_provider
   firewalls:
     login:
-        pattern:  ^/api/login$
+        pattern:  ^/login$
         security: false
 
     secured_area:
@@ -16,4 +16,4 @@ security:
             authenticator: apikey_authenticator
         provider: api_key_user_provider
   access_control:
-    - { path: ^/api, roles: ROLE_API }
+    - { path: ^/, roles: ROLE_API }
