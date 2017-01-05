@@ -1,0 +1,27 @@
+AppBundle\Entity\SuperUser:
+    type:  entity
+    table: superuser
+    id:
+        superUserID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        superUserName:
+            type: string
+            length: 255
+        superUserFirstName:
+            type: string
+            length: 255
+        superUserEmail:
+            type: string
+            length: 255
+        superUserPassword:
+            type: string
+            length: 255
+    manyToOne:
+        farm:
+          targetEntity: AppBundle\Entity\Farm
+          joinColumn:
+            name: farmID
+            referencedColumnName: farmID

@@ -1,0 +1,22 @@
+AppBundle\Entity\DatasCell2:
+    type:  entity
+    table: datascell2
+    id:
+        dataID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        EUI:
+            type: string
+            length: 255
+        timeStamp:
+            type: datetime
+        temperature2:
+            type: decimal
+            precision: 4
+            scale: 2
+        humidity2:
+            type: decimal
+            precision: 4
+            scale: 2

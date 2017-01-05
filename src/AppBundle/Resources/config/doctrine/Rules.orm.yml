@@ -1,0 +1,36 @@
+AppBundle\Entity\Rules:
+    type:  entity
+    table: rules
+    id:
+        ruleID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        ruleName:
+            type: string
+            length: 255
+        minHumidity:
+            type: decimal
+            precision: 4
+            scale: 2
+        battery:
+            type: integer
+        maxHumidity:
+            type: decimal
+            precision: 4
+            scale: 2
+        minTemperature:
+            type: decimal
+            precision: 4
+            scale: 2
+        maxTemperature:
+            type: decimal
+            precision: 4
+            scale: 2
+        SMS:
+            type: integer
+        email:
+            type: integer
+        push:
+            type: integer

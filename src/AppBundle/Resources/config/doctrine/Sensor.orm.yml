@@ -1,0 +1,57 @@
+AppBundle\Entity\Sensor:
+    type:  entity
+    table: sensor
+    id:
+        sensorID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        EUI:
+            type: string
+            length: 255
+        sensorName:
+            type: string
+        sensorPosition:
+            type: string
+        sensorDeep:
+            type: integer
+        sensorDeepZone2:
+            type: integer
+        sensorHumidity:
+            type: decimal
+            precision: 5
+            scale: 2
+        sensorTemperature:
+            type: decimal
+            precision: 5
+            scale: 2
+        sensorHumidityZone2:
+            type: decimal
+            precision: 5
+            scale: 2
+        sensorTemperatureZone2:
+            type: decimal
+            precision: 5
+            scale: 2
+        sensorPeriod:
+            type: integer
+        sensorBattery:
+            type: decimal
+            precision: 4
+            scale: 2
+        sensorLastMeasureDate:
+            type: string
+        sensorInstallationDate:
+            type: datetime
+    manyToOne:
+        farm:
+          targetEntity: AppBundle\Entity\Farm
+          joinColumn:
+            name: farmID
+            referencedColumnName: farmID
+        rules:
+          targetEntity: AppBundle\Entity\Rules
+          joinColumn:
+            name: ruleID
+            referencedColumnName: ruleID

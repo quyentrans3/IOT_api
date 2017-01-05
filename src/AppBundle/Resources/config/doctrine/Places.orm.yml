@@ -1,0 +1,7 @@
+AppBundle\Entity\Places:
+    type:  entity
+    table: places
+    id:
+        latlng_lieu:
+            type: string
+            length: 255

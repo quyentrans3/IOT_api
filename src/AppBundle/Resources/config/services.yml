@@ -1,0 +1,20 @@
+services:
+    user.services:
+      class: AppBundle\Service\UserService
+      arguments: [@doctrine.orm.entity_manager]
+    sensor.services:
+      class: AppBundle\Service\SensorService
+      arguments: [@doctrine.orm.entity_manager]
+    virtual.sensor.services:
+      class: AppBundle\Service\VirtualSensorService
+      arguments: [@doctrine.orm.entity_manager]
+    farm.services:
+      class: AppBundle\Service\FarmService
+      arguments: [@doctrine.orm.entity_manager]
+    api_key_user_provider:
+      class:  AppBundle\Security\ApiKeyUserProvider
+      arguments: [@doctrine.orm.entity_manager]
+    apikey_authenticator:
+      class:     AppBundle\Security\ApiKeyAuthenticator
+      arguments: [@security.http_utils]
+      public:    false

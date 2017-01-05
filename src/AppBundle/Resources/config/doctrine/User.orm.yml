@@ -1,0 +1,41 @@
+AppBundle\Entity\User:
+    type:  entity
+    table: user
+    id:
+        userID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        userName:
+            type: string
+            length: 255
+        userEmail:
+            type: string
+            length: 255
+        userFirstName:
+            type: string
+            length: 255
+        function:
+            type: string
+            length: 255
+        userPassword:
+            type: string
+            length: 255
+        userPhone:
+            type: string
+            length: 255
+        apiKey:
+            type: string
+            unique: true
+    manyToOne:
+        farm:
+          targetEntity: AppBundle\Entity\Farm
+          joinColumn:
+            name: farmID
+            referencedColumnName: farmID
+        superuser:
+          targetEntity: AppBundle\Entity\SuperUser
+          joinColumn:
+            name: superUserID
+            referencedColumnName: superUserID

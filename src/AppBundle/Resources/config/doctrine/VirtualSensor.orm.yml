@@ -1,0 +1,53 @@
+AppBundle\Entity\VirtualSensor:
+    type:  entity
+    table: virtualsensor
+    id:
+        virtualID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        virtualEUI:
+            type: string
+            length: 255
+        virtualName:
+            type: string
+        virtualPosition:
+            type: string
+        virtualHumidity:
+            type: decimal
+            precision: 4
+            scale: 2
+        virtualHumidity2:
+            type: decimal
+            precision: 4
+            scale: 2
+        virtualTemperature:
+            type: decimal
+            precision: 4
+            scale: 2
+        virtualTemperature2:
+            type: decimal
+            precision: 4
+            scale: 2
+        virtualDeep:
+            type: integer
+        virtualDeep2:
+            type: integer            
+        virtualPeriod:
+            type: string
+        virtualLastMeasure:
+            type: string
+        virtualInstallation:
+            type: datetime
+    manyToOne:
+        farm:
+          targetEntity: AppBundle\Entity\Farm
+          joinColumn:
+            name: farmID
+            referencedColumnName: farmID
+        rules:
+          targetEntity: AppBundle\Entity\Rules
+          joinColumn:
+            name: ruleID
+            referencedColumnName: ruleID

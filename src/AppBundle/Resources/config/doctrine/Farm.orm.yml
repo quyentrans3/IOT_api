@@ -1,0 +1,45 @@
+AppBundle\Entity\Farm:
+    type:  entity
+    table: farm
+    id:
+        farmID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        webSocket:
+            type: string
+            length: 255
+        farmName:
+            type: string
+            length: 255
+        farmPhone:
+            type: string
+            length: 255
+        farmEmail:
+            type: string
+            length: 255
+        farmAdress:
+            type: string
+            length: 255
+        farmAdress2:
+            type: string
+            length: 255
+        farmZip:
+            type: string
+            length: 255
+        farmCity:
+            type: string
+            length: 255
+        farmState:
+            type: string
+            length: 255
+        farmCountry:
+            type: string
+            length: 255
+    manyToOne:
+        admin:
+          targetEntity: AppBundle\Entity\Admin
+          joinColumn:
+            name: adminID
+            referencedColumnName: adminID

@@ -1,0 +1,41 @@
+login:
+    path:      /login
+    defaults:  { _controller: AppBundle:User:login }
+    methods:  POST
+
+get_user:
+    path:      /user/get
+    defaults:  { _controller: AppBundle:User:getUser }
+
+update_user:
+    path:      /user/update
+    defaults:  { _controller: AppBundle:User:updateUser }
+    methods:  POST
+    
+get_list_user:
+    path:      /user/list
+    defaults:  { _controller: AppBundle:User:getList }
+
+get_sensor:
+    path:      /sensor/get
+    defaults:  { _controller: AppBundle:Sensor:getSensor }
+
+get_list_sensor:
+    path:      /sensor/list
+    defaults:  { _controller: AppBundle:Sensor:getList }
+
+get_virtual_sensor:
+    path:      /virtual-sensor/get
+    defaults:  { _controller: AppBundle:VirtualSensor:getVirtualSensor }
+
+get_list_virtual_sensor:
+    path:      /virtual-sensor/list
+    defaults:  { _controller: AppBundle:VirtualSensor:getList }
+
+get_farm:
+    path:      /farm/get
+    defaults:  { _controller: AppBundle:Farm:getFarm }
+
+get_list_farm:
+    path:      /farm/list
+    defaults:  { _controller: AppBundle:Farm:getList }

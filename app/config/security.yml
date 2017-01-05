@@ -1,0 +1,19 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/security.html
+security:
+  providers:
+    api_key_user_provider:
+        id: api_key_user_provider
+  firewalls:
+    login:
+        pattern:  ^/api/login$
+        security: false
+
+    secured_area:
+        pattern: ^/
+        stateless: true
+        simple_preauth:
+            authenticator: apikey_authenticator
+        provider: api_key_user_provider
+  access_control:
+    - { path: ^/api, roles: ROLE_API }

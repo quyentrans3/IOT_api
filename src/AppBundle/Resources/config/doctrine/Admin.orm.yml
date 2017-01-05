@@ -1,0 +1,24 @@
+AppBundle\Entity\Admin:
+    type:  entity
+    table: admin
+    id:
+        adminID:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        adminName:
+            type: string
+            length: 255
+        adminFirstName:
+            type: string
+            length: 255
+        adminEmail:
+            type: string
+            length: 255
+        adminPassword:
+            type: string
+            length: 255
+        function:
+            type: string
+            length: 255
