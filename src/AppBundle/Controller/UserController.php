@@ -39,7 +39,10 @@ class UserController extends Controller
 	    			throw new \Exception("Login failed");
 	    		}
 	    	}
-	    	$message = $user ? 'Login success' : 'Email or password incorrect';
+	    	if(!$user){
+    			throw new \Exception("Email or password incorrect");
+    		}
+	    	$message = 'Login success';
 			$response->setData(array(
 				'status' => 200,
 				'message' => $message,
@@ -69,8 +72,10 @@ class UserController extends Controller
 	    	$serializer = $this->get('serializer');
 
 	    	$user = $userService->getUser($request->query->all());
-
-	    	$message = $user ? 'Get Data User success' : 'User not exists';
+	    	if(!$user){
+    			throw new \Exception("User not exists");
+    		}
+	    	$message = 'Get Data User success';
 			$response->setData(array(
 				'status' => 200,
 				'message' => $message,
