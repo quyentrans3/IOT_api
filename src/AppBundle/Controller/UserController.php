@@ -20,8 +20,8 @@ class UserController extends Controller
     		if (!empty($content))
 		    {
 		        $params = json_decode($content, true); // 2nd param to get as array
-		        $email = $params['userEmail'];
-		        $password = $params['userPassword'];
+		        $email = isset($params['userEmail']) ? $params['userEmail'] : null ;
+		        $password = isset($params['userPassword']) ? $params['userPassword'] : null ;
 		    }
 	    	if(!$email || !$password){
 	    		throw new \Exception("Email and Password required");	    		
@@ -29,7 +29,9 @@ class UserController extends Controller
 	    	$userService = $this->get('user.services');
 	    	$serializer = $this->get('serializer');
 
-	    	$user = $userService->getUser($request->request->all());
+	    	$user = $userService->getUser(
+	    		array("userEmail" => $email, "userPassword" => $password)
+	    	);
 	    	if($user){
 	    		$token = $randomletter = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 36);
 	    		$update = $userService->updateToken($user->getUserID(), $token);
