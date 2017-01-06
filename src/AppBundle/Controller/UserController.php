@@ -39,7 +39,8 @@ class UserController extends Controller
     	}catch(\Exception $ex){
 			$response->setData(array(
 				'status' => 500,
-				'message' => $ex->getMessage()
+				'message' => $ex->getMessage(),
+				'params' => $this->get('request')->request->all()
 			));
     	}
 		return $response;
