@@ -49,9 +49,9 @@ class UserController extends Controller
 			$response->setData(array(
 				'status' => 500,
 				'message' => $ex->getMessage(),
-				'params' => $this->get('request')->request->all(),
+				/*'params' => $this->get('request')->request->all(),
 				'json_content' => $this->get("request")->getContent(),
-				'headers' => $request->headers->all()
+				'headers' => $request->headers->all()*/
 			));
     	}
 		return $response;
