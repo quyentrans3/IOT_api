@@ -14,8 +14,15 @@ class UserController extends Controller
     {
     	$response = new JsonResponse();
     	try{
-    		$email = $request->get("userEmail");
-	    	$password = $request->get("userPassword");
+    		$email = null;
+	    	$password = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $email = $params['userEmail'];
+		        $password = $params['userPassword'];
+		    }
 	    	if(!$email || !$password){
 	    		throw new \Exception("Email and Password required");	    		
 	    	}
@@ -41,6 +48,7 @@ class UserController extends Controller
 				'status' => 500,
 				'message' => $ex->getMessage(),
 				'params' => $this->get('request')->request->all(),
+				'json_content' => $this->get("request")->getContent(),
 				'headers' => $request->headers->all()
 			));
     	}
