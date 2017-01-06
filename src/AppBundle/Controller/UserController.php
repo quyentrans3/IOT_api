@@ -119,14 +119,20 @@ class UserController extends Controller
     {
     	$response = new JsonResponse();
     	try{
-    		$userID = $request->get("userID");
+    		$userID = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $userID = isset($params['userID']) ? $params['userID'] : null ;
+		    }
 	    	if(!$userID){
 	    		throw new \Exception("userID required");	    		
 	    	}
 	    	$userService = $this->get('user.services');
 	    	$serializer = $this->get('serializer');
 
-	    	$user = $userService->updateUser($userID, $request->request->all());
+	    	$user = $userService->updateUser($userID, $params);
 	    	if($user){
 	    		$response->setData(array(
 					'status' => 200,
