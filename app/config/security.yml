@@ -8,7 +8,12 @@ security:
     login:
         pattern:  ^/login$
         security: false
-
+    forgot_password:
+        pattern:  ^/forgot_password$
+        security: false
+    reset_password:
+        pattern:  ^/reset_password$
+        security: false
     secured_area:
         pattern: ^/
         stateless: true

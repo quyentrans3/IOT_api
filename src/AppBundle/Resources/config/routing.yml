@@ -2,7 +2,14 @@ login:
     path:      /login
     defaults:  { _controller: AppBundle:User:login }
     methods:  POST
-
+forgot_password:
+    path:      /forgot_password
+    defaults:  { _controller: AppBundle:User:forgotPassword }
+    methods:  POST
+reset_password:
+    path:      /reset_password
+    defaults:  { _controller: AppBundle:User:resetPassword }
+    methods:  POST
 get_user:
     path:      /user/get
     defaults:  { _controller: AppBundle:User:getUser }

@@ -25,6 +25,8 @@ AppBundle\Entity\User:
         userPhone:
             type: string
             length: 255
+        validCode:
+            type: string
         apiKey:
             type: string
             unique: true

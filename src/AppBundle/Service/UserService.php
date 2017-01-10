@@ -40,6 +40,25 @@ class UserService
             return false;
         }
     }
+    public function updateValidCode($userId, $validCode)
+    {
+        try{
+            $user = $this->em->getRepository(self::USER_ENTITY_NAME)->find($userId);
+
+            if (!$userId) {
+                throw $this->createNotFoundException(
+                    'No User found for id '.$userId
+                );
+            }
+
+            $user->setValidCode($validCode);
+            $this->em->flush();
+
+            return true;
+        }catch(\Exception $ex){
+            return false;
+        }
+    }
     public function getList($params)
     {
     	$qb = $this->em->createQueryBuilder();
@@ -82,6 +101,36 @@ class UserService
             //only allow column
             $filter = array(
                 'userName', 'userFirstName', 'userPhone'
+            );
+            foreach($filter as $val){
+                if(isset($params[$val])){
+                    $columns[$val] = $params[$val];
+                }
+            }
+            foreach($columns as $column => $val){
+                eval("\$user->set".ucfirst($column)."('".$val."');");
+            }
+            $this->em->flush();
+            return $user;
+        }catch(\Exception $ex){
+            var_dump($ex->getMessage());die;
+            return false;
+        }
+    }
+    public function updateAllUser($userId, $params)
+    {
+        try{
+            $user = $this->em->getRepository(self::USER_ENTITY_NAME)->find($userId);
+
+            if (!$userId) {
+                throw $this->createNotFoundException(
+                    'No User found for id '.$userId
+                );
+            }
+            $columns = array();
+            //only allow column
+            $filter = array(
+                'userName', 'userFirstName', 'userPhone', 'userPassword', 'apiKey', 'validCode'
             );
             foreach($filter as $val){
                 if(isset($params[$val])){

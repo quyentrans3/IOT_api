@@ -283,4 +283,33 @@ class User
     {
         return $this->apiKey;
     }
+    /**
+     * @var string
+     */
+    private $validCode;
+
+
+    /**
+     * Set validCode
+     *
+     * @param string $validCode
+     *
+     * @return User
+     */
+    public function setValidCode($validCode)
+    {
+        $this->validCode = $validCode;
+
+        return $this;
+    }
+
+    /**
+     * Get validCode
+     *
+     * @return string
+     */
+    public function getValidCode()
+    {
+        return $this->validCode;
+    }
 }

@@ -155,4 +155,109 @@ class UserController extends Controller
     	}
 		return $response;
     }
+
+    public function forgotPasswordAction(Request $request)
+    {
+    	$response = new JsonResponse();
+    	try{
+    		$email = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $email = isset($params['userEmail']) ? $params['userEmail'] : null ;
+		    }
+	    	if(!$email){
+	    		throw new \Exception("Email is required");	    		
+	    	}
+	    	$userService = $this->get('user.services');
+	    	$serializer = $this->get('serializer');
+
+	    	$user = $userService->getUser(
+	    		array("userEmail" => $email)
+	    	);
+	    	if($user){
+	    		$validCode = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 6);
+	    		$update = $userService->updateValidCode($user->getUserID(), $validCode);
+	    		if(!$update){
+	    			throw new \Exception("Reset Password failed");
+	    		}
+	    	}
+	    	if(!$user){
+    			throw new \Exception("User not exists");
+    		}
+    		$html = "Dear " . $user->getUserName() . "!<br/>";
+    		$html .= "This is the valid code when you submit forgot password request<br/>";
+    		$html .= "<h3>".$user->getValidCode()."</h3><br/>";
+    		$html .= "Thanks!";
+    		$messages = \Swift_Message::newInstance()
+		        ->setSubject('Hello Email')
+		        ->setFrom('send@admin.com')
+		        ->setTo($user->getUserEmail())
+		        ->setBody($html,'text/html');
+		        var_dump($this->get('mailer')->send($messages, $failures));
+		    if (!$this->get('mailer')->send($messages, $failures))
+			{
+			  	$message = $failures;
+			}else{
+				$message = 'Send email forgot password success';	
+			}
+	    	//$message = 'Send email forgot password success';
+			$response->setData(array(
+				'status' => 200,
+				'message' => $message,
+			    //'data' => json_decode($serializer->serialize($user, 'json'))
+			));
+    	}catch(\Exception $ex){
+			$response->setData(array(
+				'status' => 500,
+				'message' => $ex->getMessage()
+			));
+    	}
+		return $response;
+    }
+    public function resetPasswordAction(Request $request)
+    {
+    	$response = new JsonResponse();
+    	try{
+    		$validCode = null;
+    		$userPassword = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $validCode = isset($params['validCode']) ? $params['validCode'] : null ;
+		        $userPassword = isset($params['userPassword']) ? $params['userPassword'] : null ;
+		    }
+	    	if(!$validCode || !$userPassword){
+	    		throw new \Exception("Valid Code or password is required");	    		
+	    	}
+	    	$userService = $this->get('user.services');
+	    	$serializer = $this->get('serializer');
+
+	    	$user = $userService->getUser(
+	    		array("validCode" => $validCode)
+	    	);
+	    	if(!$user){
+    			throw new \Exception("Code invalid");
+    		}
+    		$param = array('userPassword' => $userPassword, 'validCode' => '');
+    		$update = $userService->updateAllUser($user->getUserID(), $param);
+    		if(!$update){
+    			throw new \Exception("Reset Password Unsuccess");
+    		}
+    		$message = 'Reset Password success';
+			$response->setData(array(
+				'status' => 200,
+				'message' => $message,
+			    //'data' => json_decode($serializer->serialize($user, 'json'))
+			));
+    	}catch(\Exception $ex){
+			$response->setData(array(
+				'status' => 500,
+				'message' => $ex->getMessage()
+			));
+    	}
+		return $response;
+    }
 }
