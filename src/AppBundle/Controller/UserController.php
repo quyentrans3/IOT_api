@@ -59,7 +59,51 @@ class UserController extends Controller
     	}
 		return $response;
     }
+    public function logoutAction(Request $request)
+    {
+    	$response = new JsonResponse();
+    	try{
+    		$email = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $email = isset($params['userEmail']) ? $params['userEmail'] : null ;
+		    }
+	    	if(!$email){
+	    		throw new \Exception("Email is required");	    		
+	    	}
+	    	$userService = $this->get('user.services');
+	    	$serializer = $this->get('serializer');
 
+	    	$user = $userService->getUser(
+	    		array("userEmail" => $email)
+	    	);
+	    	if($user){
+	    		$update = $userService->updateToken($user->getUserID(), '');
+	    		if(!$update){
+	    			throw new \Exception("Logout failed");
+	    		}
+	    	}
+	    	if(!$user){
+    			throw new \Exception("Email is incorrect");
+    		}
+	    	$message = 'Logout success';
+			$response->setData(array(
+				'status' => 200,
+				'message' => $message
+			));
+    	}catch(\Exception $ex){
+			$response->setData(array(
+				'status' => 500,
+				'message' => $ex->getMessage(),
+				/*'params' => $this->get('request')->request->all(),
+				'json_content' => $this->get("request")->getContent(),
+				'headers' => $request->headers->all()*/
+			));
+    	}
+		return $response;
+    }
     public function getUserAction(Request $request)
     {
     	$response = new JsonResponse();
