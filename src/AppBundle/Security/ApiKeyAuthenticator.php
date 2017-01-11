@@ -27,7 +27,6 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface
             // or to just skip api key authentication
             // return null;
         }
-        dump($apiKey);die;
         return new PreAuthenticatedToken(
             'anon.',
             $apiKey,
@@ -50,7 +49,6 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface
                 )
             );
         }
-        dump($token);die;
         $apiKey = $token->getCredentials();
         $username = $userProvider->getUsernameForApiKey($apiKey);
 
