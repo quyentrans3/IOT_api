@@ -239,7 +239,6 @@ class UserController extends Controller
 		        ->setFrom('send@admin.com')
 		        ->setTo($user->getUserEmail())
 		        ->setBody($html,'text/html');
-		        var_dump($this->get('mailer')->send($messages, $failures));
 		    if (!$this->get('mailer')->send($messages, $failures))
 			{
 			  	$message = $failures;
