@@ -7,22 +7,22 @@ security:
   firewalls:
     login:
         pattern:  ^/login$
-        security: false
+        anonymous: true
     forgot_password:
         pattern:  ^/forgot_password$
-        security: false
+        anonymous: true
     reset_password:
         pattern:  ^/reset_password$
-        security: false
+        anonymous: true
     secured_area:
         pattern: ^/
         stateless: true
         simple_preauth:
             authenticator: apikey_authenticator
         provider: api_key_user_provider
-        anonymous: ~
+        anonymous: false
   access_control:
     - { path: ^/, roles: ROLE_API }
-    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/reset_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/forgot_password$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/reset_password$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
