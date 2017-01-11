@@ -20,6 +20,7 @@ security:
         simple_preauth:
             authenticator: apikey_authenticator
         provider: api_key_user_provider
+        anonymous: ~
   access_control:
     - { path: ^/, roles: ROLE_API }
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
