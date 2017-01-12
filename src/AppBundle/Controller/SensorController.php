@@ -23,11 +23,31 @@ class SensorController extends Controller
 	    	$serializer = $this->get('serializer');
 
 	    	$sensor = $sensorService->getSensor($request->query->all());
+	    	if(!$sensor){
+	    		throw new \Exception("Sensor not exists");
+	    	}
+    		$sensor->setAlertHumidity(false);
+			$sensor->setAlertTemperature(false);
+			$sensor->setAlertBattery(false);
+            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity()
+            || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+            {
+            	$sensor->setAlertHumidity(true);
+            }
+            //ok
+            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+            {
+                $sensor->setAlertTemperature(true);
+            }
+        
+            if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
+            {
+                $sensor->setAlertBattery(true);
+            }
 
-	    	$message = $sensor ? 'Get Data Sensor success' : 'Sensor not exists';
 			$response->setData(array(
 				'status' => 200,
-				'message' => $message,
+				'message' => 'Get Data Sensor success',
 			    'data' => json_decode($serializer->serialize($sensor, 'json'))
 			));
     	}catch(\Exception $ex){
@@ -53,7 +73,27 @@ class SensorController extends Controller
 	    	$params['offset'] = ($page - 1) * $params['limit'];
 	    	
 	    	$sensors = $sensorService->getList($params);
-
+	    	foreach ($sensors as $key => $sensor)
+            {
+            	$sensors[$key]->setAlertHumidity(false);
+				$sensors[$key]->setAlertTemperature(false);
+				$sensors[$key]->setAlertBattery(false);
+	            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity()
+	            || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+	            {
+	            	$sensors[$key]->setAlertHumidity(true);
+	            }
+	            //ok
+	            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+	            {
+	                $sensors[$key]->setAlertTemperature(true);
+	            }
+	        
+	            if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
+	            {
+	                $sensors[$key]->setAlertBattery(true);
+	            }			
+            }
 	    	$message = 'Get List Sensor success';
 			$response->setData(array(
 				'status' => 200,

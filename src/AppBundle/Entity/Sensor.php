@@ -457,4 +457,94 @@ class Sensor
     {
         return $this->rules;
     }
+
+    /**
+     * @var bool
+     */
+    private $alertHumidity;
+
+
+    /**
+     * Get alertHumidity
+     *
+     * @return bool
+     */
+    public function getAlertHumidity()
+    {
+        return $this->alertHumidity;
+    }
+
+    /**
+     * Set alertHumidity
+     *
+     * @param string $alertHumidity
+     *
+     * @return bool
+     */
+    public function setAlertHumidity($alertHumidity)
+    {
+        $this->alertHumidity = $alertHumidity;
+
+        return $this;
+    }
+
+    /**
+     * @var bool
+     */
+    private $alertTemperature;
+
+
+    /**
+     * Get alertTemperature
+     *
+     * @return bool
+     */
+    public function getAlertTemperature()
+    {
+        return $this->alertTemperature;
+    }
+
+    /**
+     * Set alertTemperature
+     *
+     * @param string $alertTemperature
+     *
+     * @return bool
+     */
+    public function setAlertTemperature($alertTemperature)
+    {
+        $this->alertTemperature = $alertTemperature;
+
+        return $this;
+    }
+
+    /**
+     * @var bool
+     */
+    private $alertBattery;
+
+
+    /**
+     * Get alertBattery
+     *
+     * @return bool
+     */
+    public function getAlertBattery()
+    {
+        return $this->alertBattery;
+    }
+
+    /**
+     * Set alertBattery
+     *
+     * @param string $alertBattery
+     *
+     * @return bool
+     */
+    public function setAlertBattery($alertBattery)
+    {
+        $this->alertBattery = $alertBattery;
+
+        return $this;
+    }
 }

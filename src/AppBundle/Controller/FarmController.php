@@ -23,11 +23,12 @@ class FarmController extends Controller
 	    	$serializer = $this->get('serializer');
 
 	    	$farm = $farmService->getFarm($request->query->all());
-
-	    	$message = $farm ? 'Get Data farm success' : 'farm not exists';
+	    	if(!$farm){
+    			throw new \Exception("Farm not exists");
+    		}
 			$response->setData(array(
 				'status' => 200,
-				'message' => $message,
+				'message' => 'Get Data farm success',
 			    'data' => json_decode($serializer->serialize($farm, 'json'))
 			));
     	}catch(\Exception $ex){

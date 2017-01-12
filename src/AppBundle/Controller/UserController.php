@@ -119,10 +119,9 @@ class UserController extends Controller
 	    	if(!$user){
     			throw new \Exception("User not exists");
     		}
-	    	$message = 'Get Data User success';
 			$response->setData(array(
 				'status' => 200,
-				'message' => $message,
+				'message' => 'Get Data User success',
 			    'data' => json_decode($serializer->serialize($user, 'json'))
 			));
     	}catch(\Exception $ex){
