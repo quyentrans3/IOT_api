@@ -378,7 +378,7 @@ class VirtualSensor
      */
     public function getVirtualInstallation()
     {
-        return $this->virtualInstallation;
+        return $this->virtualInstallation->format('Y-m-d');
     }
 
     /**

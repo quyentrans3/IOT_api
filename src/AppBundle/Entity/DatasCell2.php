@@ -88,7 +88,7 @@ class DatasCell2
      */
     public function getTimeStamp()
     {
-        return $this->timeStamp;
+        return $this->timeStamp->format('Y-m-d');
     }
 
     /**

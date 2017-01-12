@@ -407,7 +407,7 @@ class Sensor
      */
     public function getSensorInstallationDate()
     {
-        return $this->sensorInstallationDate;
+        return $this->sensorInstallationDate->format('Y-m-d');
     }
 
     /**
