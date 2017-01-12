@@ -547,4 +547,64 @@ class Sensor
 
         return $this;
     }
+
+    /**
+     * @var bool
+     */
+    private $alertHumidityZone2;
+
+
+    /**
+     * Get alertHumidityZone2
+     *
+     * @return bool
+     */
+    public function getAlertHumidityZone2()
+    {
+        return $this->alertHumidityZone2;
+    }
+
+    /**
+     * Set alertHumidityZone2
+     *
+     * @param string $alertHumidityZone2
+     *
+     * @return bool
+     */
+    public function setAlertHumidityZone2($alertHumidityZone2)
+    {
+        $this->alertHumidityZone2 = $alertHumidityZone2;
+
+        return $this;
+    }
+
+    /**
+     * @var bool
+     */
+    private $alertTemperatureZone2;
+
+
+    /**
+     * Get alertTemperatureZone2
+     *
+     * @return bool
+     */
+    public function getAlertTemperatureZone2()
+    {
+        return $this->alertTemperatureZone2;
+    }
+
+    /**
+     * Set alertTemperatureZone2
+     *
+     * @param string $alertTemperatureZone2
+     *
+     * @return bool
+     */
+    public function setAlertTemperatureZone2($alertTemperatureZone2)
+    {
+        $this->alertTemperatureZone2 = $alertTemperatureZone2;
+
+        return $this;
+    }
 }

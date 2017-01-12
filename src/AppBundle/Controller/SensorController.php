@@ -29,17 +29,28 @@ class SensorController extends Controller
     		$sensor->setAlertHumidity(false);
 			$sensor->setAlertTemperature(false);
 			$sensor->setAlertBattery(false);
-            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity()
-            || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+			$sensor->setAlertHumidityZone2(false);
+			$sensor->setAlertTemperatureZone2(false);
+            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity())
             {
             	$sensor->setAlertHumidity(true);
             }
             //ok
-            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature())
             {
                 $sensor->setAlertTemperature(true);
             }
-        
+        	
+            if ($sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+            {
+            	$sensor->setAlertHumidityZone2(true);
+            }
+            //ok
+            if ($sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+            {
+                $sensor->setAlertTemperatureZone2(true);
+            }
+
             if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
             {
                 $sensor->setAlertBattery(true);
@@ -78,17 +89,28 @@ class SensorController extends Controller
             	$sensors[$key]->setAlertHumidity(false);
 				$sensors[$key]->setAlertTemperature(false);
 				$sensors[$key]->setAlertBattery(false);
-	            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity()
-	            || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+				$sensors[$key]->setAlertHumidityZone2(false);
+				$sensors[$key]->setAlertTemperatureZone2(false);
+	            if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity())
 	            {
 	            	$sensors[$key]->setAlertHumidity(true);
 	            }
 	            //ok
-	            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+	            if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature())
 	            {
 	                $sensors[$key]->setAlertTemperature(true);
 	            }
-	        
+	        	
+	            if ($sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
+	            {
+	            	$sensors[$key]->setAlertHumidityZone2(true);
+	            }
+	            //ok
+	            if ($sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
+	            {
+	                $sensors[$key]->setAlertTemperatureZone2(true);
+	            }
+
 	            if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
 	            {
 	                $sensors[$key]->setAlertBattery(true);
