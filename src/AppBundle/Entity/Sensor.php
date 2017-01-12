@@ -411,54 +411,6 @@ class Sensor
     }
 
     /**
-     * Set farm
-     *
-     * @param \AppBundle\Entity\Farm $farm
-     *
-     * @return Sensor
-     */
-    public function setFarm(\AppBundle\Entity\Farm $farm = null)
-    {
-        $this->farm = $farm;
-
-        return $this;
-    }
-
-    /**
-     * Get farm
-     *
-     * @return \AppBundle\Entity\Farm
-     */
-    public function getFarm()
-    {
-        return $this->farm;
-    }
-
-    /**
-     * Set rules
-     *
-     * @param \AppBundle\Entity\Rules $rules
-     *
-     * @return Sensor
-     */
-    public function setRules(\AppBundle\Entity\Rules $rules = null)
-    {
-        $this->rules = $rules;
-
-        return $this;
-    }
-
-    /**
-     * Get rules
-     *
-     * @return \AppBundle\Entity\Rules
-     */
-    public function getRules()
-    {
-        return $this->rules;
-    }
-
-    /**
      * @var bool
      */
     private $alertHumidity;
@@ -606,5 +558,53 @@ class Sensor
         $this->alertTemperatureZone2 = $alertTemperatureZone2;
 
         return $this;
+    }
+
+    /**
+     * Set farm
+     *
+     * @param \AppBundle\Entity\Farm $farm
+     *
+     * @return Sensor
+     */
+    public function setFarm(\AppBundle\Entity\Farm $farm = null)
+    {
+        $this->farm = $farm;
+
+        return $this;
+    }
+
+    /**
+     * Get farm
+     *
+     * @return \AppBundle\Entity\Farm
+     */
+    public function getFarm()
+    {
+        return $this->farm;
+    }
+
+    /**
+     * Set rules
+     *
+     * @param \AppBundle\Entity\Rules $rules
+     *
+     * @return Sensor
+     */
+    public function setRules(\AppBundle\Entity\Rules $rules = null)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * Get rules
+     *
+     * @return \AppBundle\Entity\Rules
+     */
+    public function getRules()
+    {
+        return $this->rules;
     }
 }
