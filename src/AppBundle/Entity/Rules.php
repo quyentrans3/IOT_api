@@ -45,7 +45,7 @@ class Rules
     /**
      * @var integer
      */
-    private $SMS;
+    private $sms;
 
     /**
      * @var integer
@@ -213,27 +213,27 @@ class Rules
     }
 
     /**
-     * Set sMS
+     * Set sms
      *
-     * @param integer $sMS
+     * @param integer $sms
      *
      * @return Rules
      */
-    public function setSMS($sMS)
+    public function setSms($sms)
     {
-        $this->SMS = $sMS;
+        $this->sms = $sms;
 
         return $this;
     }
 
     /**
-     * Get sMS
+     * Get sms
      *
      * @return integer
      */
-    public function getSMS()
+    public function getSms()
     {
-        if($this->SMS == 1)
+        if($this->sms == 1)
             return true;
         return false;
     }

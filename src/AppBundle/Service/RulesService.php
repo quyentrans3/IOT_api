@@ -59,10 +59,10 @@ class RulesService
             $columns = array();
             //only allow column
             $filter = array(
-                'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature', 'SMS', 'email', 'push'
+                'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature', 'sms', 'email', 'push'
             );
 
-            $params['SMS'] = $params['SMS'] == true ? 1 : 0;
+            $params['sms'] = $params['sms'] == true ? 1 : 0;
             $params['email'] = $params['email'] == true ? 1 : 0;
             $params['push'] = $params['push'] == true ? 1 : 0;
 
@@ -77,7 +77,6 @@ class RulesService
             $this->em->flush();
             return $rule;
         }catch(\Exception $ex){
-            var_dump($ex->getMessage());die;
             return false;
         }
     }

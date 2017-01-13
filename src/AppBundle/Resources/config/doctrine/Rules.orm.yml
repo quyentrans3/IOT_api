@@ -28,7 +28,7 @@ AppBundle\Entity\Rules:
             type: decimal
             precision: 4
             scale: 2
-        SMS:
+        sms:
             type: integer
         email:
             type: integer
