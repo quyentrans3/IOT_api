@@ -50,3 +50,16 @@ get_farm:
 get_list_farm:
     path:      /farm/list
     defaults:  { _controller: AppBundle:Farm:getList }
+
+get_rules:
+    path:      /rules/get
+    defaults:  { _controller: AppBundle:Rules:get }
+
+update_rules:
+    path:      /rules/update
+    defaults:  { _controller: AppBundle:Rules:update }
+    methods:  POST
+    
+get_list_rules:
+    path:      /rules/list
+    defaults:  { _controller: AppBundle:Rules:getList }
