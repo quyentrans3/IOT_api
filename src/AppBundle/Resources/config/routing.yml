@@ -59,7 +59,14 @@ update_rules:
     path:      /rules/update
     defaults:  { _controller: AppBundle:Rules:update }
     methods:  POST
-    
+delete_rules:
+    path:      /rules/delete
+    defaults:  { _controller: AppBundle:Rules:delete }
+    methods:  POST
+add_rules:
+    path:      /rules/add
+    defaults:  { _controller: AppBundle:Rules:add }
+    methods:  POST
 get_list_rules:
     path:      /rules/list
     defaults:  { _controller: AppBundle:Rules:getList }

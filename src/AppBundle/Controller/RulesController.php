@@ -68,7 +68,46 @@ class RulesController extends Controller
     	}
 		return $response;
     }
+    public function addAction(Request $request)
+    {
+    	$response = new JsonResponse();
+    	try{
+    		$ruleName = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $ruleName = isset($params['ruleName']) ? $params['ruleName'] : null ;
+		    }
+	    	$fieldRequires = array(
+                'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature'
+            );
+            foreach($fieldRequires as $val){
+                if(!isset($params[$val])){
+                    throw new \Exception($val . ' required!'); 
+                }
+            }
+	    	$rulesService = $this->get('rules.services');
+	    	$serializer = $this->get('serializer');
 
+	    	$rule = $rulesService->addRules($params);
+	    	if($rule){
+	    		$response->setData(array(
+					'status' => 200,
+					'message' => 'Add Success',
+					'data' => json_decode($serializer->serialize($rule, 'json'))
+				));
+	    	}else{
+	    		throw new \Exception("Add Rule failed");	
+	    	}
+    	}catch(\Exception $ex){
+			$response->setData(array(
+				'status' => 500,
+				'message' => $ex->getMessage()
+			));
+    	}
+		return $response;
+    }
     public function updateAction(Request $request)
     {
     	$response = new JsonResponse();
@@ -95,6 +134,40 @@ class RulesController extends Controller
 				));
 	    	}else{
 	    		throw new \Exception("Update Rule failed");	
+	    	}
+    	}catch(\Exception $ex){
+			$response->setData(array(
+				'status' => 500,
+				'message' => $ex->getMessage()
+			));
+    	}
+		return $response;
+    }
+    public function deleteAction(Request $request)
+    {
+    	$response = new JsonResponse();
+    	try{
+    		$ruleID = null;
+    		$content = $this->get("request")->getContent();
+    		if (!empty($content))
+		    {
+		        $params = json_decode($content, true); // 2nd param to get as array
+		        $ruleID = isset($params['ruleID']) ? $params['ruleID'] : null ;
+		    }
+	    	if(!$ruleID){
+	    		throw new \Exception("ruleID required");	    		
+	    	}
+	    	$rulesService = $this->get('rules.services');
+	    	$serializer = $this->get('serializer');
+
+	    	$rule = $rulesService->deleteRules($ruleID, $params);
+	    	if($rule){
+	    		$response->setData(array(
+					'status' => 200,
+					'message' => 'Delete Success',
+				));
+	    	}else{
+	    		throw new \Exception("Delete Rule failed");	
 	    	}
     	}catch(\Exception $ex){
 			$response->setData(array(

@@ -46,6 +46,35 @@ class RulesService
     	$rules = $qb->getQuery()->getResult();
     	return $rules;
     }
+    public function addRules($params)
+    {
+        try{
+            $rule = new Rules();
+            $columns = array();
+            //only allow column
+            $filter = array(
+                'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature', 'sms', 'email', 'push'
+            );
+
+            $params['sms'] = isset($params['sms']) && $params['sms'] == true ? 1 : 0;
+            $params['email'] = isset($params['email']) && $params['email'] == true ? 1 : 0;
+            $params['push'] = isset($params['push']) && $params['push'] == true ? 1 : 0;
+
+            foreach($filter as $val){
+                if(isset($params[$val])){
+                    $columns[$val] = $params[$val];
+                }
+            }
+            foreach($columns as $column => $val){
+                eval("\$rule->set".ucfirst($column)."('".$val."');");
+            }
+            $this->em->persist($rule);
+            $this->em->flush();
+            return $rule;
+        }catch(\Exception $ex){
+            return false;
+        }
+    }
     public function updateRules($ruleId, $params)
     {
         try{
@@ -62,9 +91,9 @@ class RulesService
                 'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature', 'sms', 'email', 'push'
             );
 
-            $params['sms'] = $params['sms'] == true ? 1 : 0;
-            $params['email'] = $params['email'] == true ? 1 : 0;
-            $params['push'] = $params['push'] == true ? 1 : 0;
+            $params['sms'] = isset($params['sms']) && $params['sms'] == true ? 1 : 0;
+            $params['email'] = isset($params['email']) && $params['email'] == true ? 1 : 0;
+            $params['push'] = isset($params['push']) && $params['push'] == true ? 1 : 0;
 
             foreach($filter as $val){
                 if(isset($params[$val])){
@@ -76,6 +105,23 @@ class RulesService
             }
             $this->em->flush();
             return $rule;
+        }catch(\Exception $ex){
+            return false;
+        }
+    }
+    public function deleteRules($ruleId, $params)
+    {
+        try{
+            $rule = $this->em->getRepository(self::RULES_ENTITY_NAME)->find($ruleId);
+
+            if (!$rule) {
+                throw $this->createNotFoundException(
+                    'No Rule found for id '.$ruleId
+                );
+            }
+            $this->em->remove($rule);
+            $this->em->flush();
+            return true;
         }catch(\Exception $ex){
             return false;
         }
