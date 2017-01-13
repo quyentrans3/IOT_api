@@ -43,7 +43,7 @@ class RulesService
 			$qb->andWhere($qb->expr()->like('ru.' . $key, ':' . $key));
 			$qb->setParameter($key, '%'.$val.'%');
 		}
-    	$rules = $qb->getQuery()->getArrayResult();
+    	$rules = $qb->getQuery()->getResult();
     	return $rules;
     }
     public function updateRules($ruleId, $params)
@@ -61,6 +61,11 @@ class RulesService
             $filter = array(
                 'ruleName', 'minHumidity', 'maxHumidity', 'battery', 'minTemperature', 'maxTemperature', 'SMS', 'email', 'push'
             );
+
+            $params['SMS'] = $params['SMS'] == true ? 1 : 0;
+            $params['email'] = $params['email'] == true ? 1 : 0;
+            $params['push'] = $params['push'] == true ? 1 : 0;
+
             foreach($filter as $val){
                 if(isset($params[$val])){
                     $columns[$val] = $params[$val];

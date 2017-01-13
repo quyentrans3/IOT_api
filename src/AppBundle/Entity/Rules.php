@@ -233,7 +233,9 @@ class Rules
      */
     public function getSMS()
     {
-        return $this->SMS;
+        if($this->SMS == 1)
+            return true;
+        return false;
     }
 
     /**
@@ -257,7 +259,9 @@ class Rules
      */
     public function getEmail()
     {
-        return $this->email;
+        if($this->email == 1)
+            return true;
+        return false;
     }
 
     /**
@@ -281,6 +285,8 @@ class Rules
      */
     public function getPush()
     {
-        return $this->push;
+        if($this->push == 1)
+            return true;
+        return false;
     }
 }
