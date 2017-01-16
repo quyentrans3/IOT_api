@@ -26,8 +26,8 @@ class ReportController extends Controller
 	    		$date = new \DateTime($val->getDateLastUpdate());
 	    		$date = $date->format('y-m-d H:i:s');
 	    		$dates[$date] = array(
-	    			'temperatureZone1' => $val->getTemperature1(),
-	    			'humidityZone1' => $val->getHumidity1(),
+	    			'temperatureZone1' => (float)$val->getTemperature1(),
+	    			'humidityZone1' => (float)$val->getHumidity1(),
 	    			'dateTime' => $date
 	    		);
 	    	}
@@ -36,12 +36,12 @@ class ReportController extends Controller
 	    		$date = $date->format('y-m-d H:i:s');
 	    		//append to date exists cell 1
 	    		if(isset($dates[$date])){
-	    			$dates[$date]['temperatureZone2'] = $val->getTemperature2();
-	    			$dates[$date]['humidityZone2'] = $val->getHumidity2();
+	    			$dates[$date]['temperatureZone2'] = (float)$val->getTemperature2();
+	    			$dates[$date]['humidityZone2'] = (float)$val->getHumidity2();
 	    		}else{
 	    			$dates[$date] = array(
-		    			'temperatureZone2' => $val->getTemperature2(),
-		    			'humidityZone2' => $val->getHumidity2(),
+		    			'temperatureZone2' => (float)$val->getTemperature2(),
+		    			'humidityZone2' => (float)$val->getHumidity2(),
 		    			'dateTime' => $date
 		    		);
 	    		}
