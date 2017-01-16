@@ -33,13 +33,11 @@ class ReportService
             $qb->setParameter('dateLastUpdate_end', $params['end_date']);
         }
         if(isset($params['sensorID'])){
-            $sensor = $this->em->getRepository(self::SENSOR_ENTITY_NAME)->findOneBy(array('sensorID'=>$params));
-            if(!$sensor){
-                throw new \Exception("Sensor not found");
-            }
-            $qb->andWhere('da.EUI = :EUI');
-            $qb->setParameter('EUI', $sensor->getEUI());
+            $qb->innerJoin(self::SENSOR_ENTITY_NAME, 'se', 'WITH', 'se.EUI = da.EUI');
+            $qb->andWhere('se.sensorID = :sensorID');
+            $qb->setParameter('sensorID', $params['sensorID']);
         }
+        //var_dump($qb->getQuery()->getSql());die;
     	$reports = $qb->getQuery()->getResult();
     	return $reports;
     }
@@ -61,12 +59,9 @@ class ReportService
             $qb->setParameter('dateLastUpdate_end', $params['end_date']);
         }
         if(isset($params['sensorID'])){
-            $sensor = $this->em->getRepository(self::SENSOR_ENTITY_NAME)->findOneBy(array('sensorID'=>$params));
-            if(!$sensor){
-                throw new \Exception("Sensor not found");
-            }
-            $qb->andWhere('da.EUI = :EUI');
-            $qb->setParameter('EUI', $sensor->getEUI());
+            $qb->innerJoin(self::SENSOR_ENTITY_NAME, 'se', 'WITH', 'se.EUI = da.EUI');
+            $qb->andWhere('se.sensorID = :sensorID');
+            $qb->setParameter('sensorID', $params['sensorID']);
         }
         $reports = $qb->getQuery()->getResult();
         return $reports;
