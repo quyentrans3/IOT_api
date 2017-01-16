@@ -14,6 +14,9 @@ services:
     rules.services:
       class: AppBundle\Service\RulesService
       arguments: [@doctrine.orm.entity_manager]
+    report.services:
+      class: AppBundle\Service\ReportService
+      arguments: [@doctrine.orm.entity_manager]
     api_key_user_provider:
       class:  AppBundle\Security\ApiKeyUserProvider
       arguments: [@doctrine.orm.entity_manager]

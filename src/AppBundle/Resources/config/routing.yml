@@ -70,3 +70,7 @@ add_rules:
 get_list_rules:
     path:      /rules/list
     defaults:  { _controller: AppBundle:Rules:getList }
+
+get_report:
+    path:      /report
+    defaults:  { _controller: AppBundle:Report:get }

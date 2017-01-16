@@ -7,10 +7,6 @@ namespace AppBundle\Entity;
  */
 class DatasCell2
 {
-    /**
-     * @var integer
-     */
-    private $dataID;
 
     /**
      * @var string
@@ -34,31 +30,21 @@ class DatasCell2
 
 
     /**
-     * Get dataID
+     * Set EUI
      *
-     * @return integer
-     */
-    public function getDataID()
-    {
-        return $this->dataID;
-    }
-
-    /**
-     * Set eUI
-     *
-     * @param string $eUI
+     * @param string $EUI
      *
      * @return DatasCell2
      */
-    public function setEUI($eUI)
+    public function setEUI($EUI)
     {
-        $this->EUI = $eUI;
+        $this->EUI = $EUI;
 
         return $this;
     }
 
     /**
-     * Get eUI
+     * Get EUI
      *
      * @return string
      */
@@ -88,7 +74,7 @@ class DatasCell2
      */
     public function getTimeStamp()
     {
-        return $this->timeStamp->format('Y-m-d');
+        return $this->timeStamp;
     }
 
     /**
@@ -137,5 +123,34 @@ class DatasCell2
     public function getHumidity2()
     {
         return $this->humidity2;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateLastUpdate;
+
+
+    /**
+     * Set dateLastUpdate
+     *
+     * @param \DateTime $dateLastUpdate
+     *
+     * @return DatasCell2
+     */
+    public function setDateLastUpdate($dateLastUpdate)
+    {
+        $this->dateLastUpdate = $dateLastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastUpdate
+     *
+     * @return \DateTime
+     */
+    public function getDateLastUpdate()
+    {
+        return $this->dateLastUpdate;
     }
 }

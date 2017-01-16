@@ -2,16 +2,13 @@ AppBundle\Entity\Datas:
     type:  entity
     table: datas
     id:
-        dataID:
-            type: integer
-            generator:
-                strategy: AUTO
-    fields:
         EUI:
             type: string
-            length: 255
+        dateLastUpdate:
+            type: string
+    fields:
         timeStamp:
-            type: datetime
+            type: string
         temperature1:
             type: decimal
             precision: 4
