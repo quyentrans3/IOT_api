@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 
 class ReportService
 {
+    const SENSOR_ENTITY_NAME = 'AppBundle:Sensor';
 	const DATAS_ENTITY_NAME = 'AppBundle:Datas';
 	const DATASCELL2_ENTITY_NAME = 'AppBundle:DatasCell2';
 	private $em;
@@ -31,6 +32,14 @@ class ReportService
             $qb->andWhere('da.dateLastUpdate <= :dateLastUpdate_end');
             $qb->setParameter('dateLastUpdate_end', $params['end_date']);
         }
+        if(isset($params['sensorID'])){
+            $sensor = $this->em->getRepository(self::SENSOR_ENTITY_NAME)->findOneBy(array('sensorID'=>$params));
+            if(!$sensor){
+                throw new \Exception("Sensor not found");
+            }
+            $qb->andWhere('da.EUI = :EUI');
+            $qb->setParameter('EUI', $sensor->getEUI());
+        }
     	$reports = $qb->getQuery()->getResult();
     	return $reports;
     }
@@ -50,6 +59,14 @@ class ReportService
         if(isset($params['end_date'])){
             $qb->andWhere('da.dateLastUpdate <= :dateLastUpdate_end');
             $qb->setParameter('dateLastUpdate_end', $params['end_date']);
+        }
+        if(isset($params['sensorID'])){
+            $sensor = $this->em->getRepository(self::SENSOR_ENTITY_NAME)->findOneBy(array('sensorID'=>$params));
+            if(!$sensor){
+                throw new \Exception("Sensor not found");
+            }
+            $qb->andWhere('da.EUI = :EUI');
+            $qb->setParameter('EUI', $sensor->getEUI());
         }
         $reports = $qb->getQuery()->getResult();
         return $reports;
