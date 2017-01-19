@@ -28,20 +28,19 @@ class PushController extends Controller
 
 			$message = new Message();
 			$message->setPriority('high');
-			$message->addRecipient(new Device('_YOUR_DEVICE_TOKEN_'));
+			$message->addRecipient(new Device('el2cX2LM0_c:APA91bGS2aFXqZ2O1yGiBVlYgK-3_BZ0UPQNdqJssP6q6fSD2KmQNlkH-Yr8w6wingB1Rbqxy-Ah-xXuXNKXtSSIDUVM5Bo9XKOfTYU8jjfzR6o99CTTLBwi7GTwB5FzlvhHhv63sKL0'));
 			$message
 			    ->setNotification(new Notification('some title', 'some body'))
 			    ->setData(['key' => 'value'])
 			;
-			if(!$response = $client->send($message)){
+			$data = $client->send($message);
+			if(!$data){
 				throw new \Exception("Push notification failed");
 			}
-	    	//remove key dates
-	    	$dates = array_values($dates);
 			$response->setData(array(
 				'status' => 200,
 				'message' => 'Push notification success',
-			    'data' => $response->getBody()->getContents()
+			    'data' => $data->getBody()->getContents()
 			));
     	}catch(\Exception $ex){
 			$response->setData(array(
