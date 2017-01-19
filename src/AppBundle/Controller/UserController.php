@@ -16,12 +16,16 @@ class UserController extends Controller
     	try{
     		$email = null;
 	    	$password = null;
+	    	$deviceID = null;
+	    	$deviceOS = null;
     		$content = $this->get("request")->getContent();
     		if (!empty($content))
 		    {
 		        $params = json_decode($content, true); // 2nd param to get as array
 		        $email = isset($params['userEmail']) ? $params['userEmail'] : null ;
 		        $password = isset($params['userPassword']) ? $params['userPassword'] : null ;
+		        $deviceID = isset($params['deviceID']) ? $params['deviceID'] : null ;
+		        $deviceOS = isset($params['userPassword']) ? $params['deviceOS'] : null ;
 		    }
 	    	if(!$email || !$password){
 	    		throw new \Exception("Email and Password required");	    		
@@ -34,7 +38,11 @@ class UserController extends Controller
 	    	);
 	    	if($user){
 	    		$token = $randomletter = substr(str_shuffle("abcdefghijklmnopqrstuvwxyz"), 0, 36);
-	    		$update = $userService->updateToken($user->getUserID(), $token);
+	    		$update = $userService->updateAllUser($user->getUserID(), array(
+	    			'apiKey' => $token,
+	    			'deviceID' => $deviceID,
+	    			'deviceOS' => $deviceOS
+	    		));
 	    		if(!$update){
 	    			throw new \Exception("Login failed");
 	    		}

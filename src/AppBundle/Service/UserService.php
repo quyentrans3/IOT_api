@@ -130,7 +130,7 @@ class UserService
             $columns = array();
             //only allow column
             $filter = array(
-                'userName', 'userFirstName', 'userPhone', 'userPassword', 'apiKey', 'validCode'
+                'userName', 'userFirstName', 'userPhone', 'userPassword', 'apiKey', 'validCode', 'deviceID', 'deviceOS'
             );
             foreach($filter as $val){
                 if(isset($params[$val])){

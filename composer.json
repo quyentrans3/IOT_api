@@ -22,7 +22,8 @@
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-        "twig/extensions": "^1.4"
+        "twig/extensions": "^1.4",
+        "sngrl/php-firebase-cloud-messaging": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

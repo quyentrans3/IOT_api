@@ -30,6 +30,10 @@ AppBundle\Entity\User:
         apiKey:
             type: string
             unique: true
+        deviceID:
+            type: string
+        deviceOS:
+            type: string
     manyToOne:
         farm:
           targetEntity: AppBundle\Entity\Farm

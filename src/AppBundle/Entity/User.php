@@ -312,4 +312,62 @@ class User
     {
         return $this->validCode;
     }
+    /**
+     * @var string
+     */
+    private $deviceID;
+
+    /**
+     * @var string
+     */
+    private $deviceOS;
+
+
+    /**
+     * Set deviceID
+     *
+     * @param string $deviceID
+     *
+     * @return User
+     */
+    public function setDeviceID($deviceID)
+    {
+        $this->deviceID = $deviceID;
+
+        return $this;
+    }
+
+    /**
+     * Get deviceID
+     *
+     * @return string
+     */
+    public function getDeviceID()
+    {
+        return $this->deviceID;
+    }
+
+    /**
+     * Set deviceOS
+     *
+     * @param string $deviceOS
+     *
+     * @return User
+     */
+    public function setDeviceOS($deviceOS)
+    {
+        $this->deviceOS = $deviceOS;
+
+        return $this;
+    }
+
+    /**
+     * Get deviceOS
+     *
+     * @return string
+     */
+    public function getDeviceOS()
+    {
+        return $this->deviceOS;
+    }
 }
