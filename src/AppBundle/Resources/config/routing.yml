@@ -74,3 +74,8 @@ get_list_rules:
 get_report:
     path:      /report
     defaults:  { _controller: AppBundle:Report:get }
+
+pust_notification:
+    path:      /push
+    defaults:  { _controller: AppBundle:Push:index }
+    methods:  POST

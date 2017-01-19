@@ -11,10 +11,10 @@ use sngrl\PhpFirebaseCloudMessaging\Client;
 use sngrl\PhpFirebaseCloudMessaging\Message;
 use sngrl\PhpFirebaseCloudMessaging\Recipient\Device;
 use sngrl\PhpFirebaseCloudMessaging\Notification;
-{
-class PushController extends Controller
 
-    public function getAction(Request $request)
+class PushController extends Controller
+{
+    public function indexAction(Request $request)
     {
     	$response = new JsonResponse();
     	try{
