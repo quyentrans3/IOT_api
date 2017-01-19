@@ -88,7 +88,11 @@ class UserController extends Controller
 	    		array("userEmail" => $email)
 	    	);
 	    	if($user){
-	    		$update = $userService->updateToken($user->getUserID(), '');
+	    		$update = $userService->updateAllUser($user->getUserID(), array(
+	    			'apiKey' => '',
+	    			'deviceID' => '',
+	    			'deviceOS' => ''
+	    		));
 	    		if(!$update){
 	    			throw new \Exception("Logout failed");
 	    		}
