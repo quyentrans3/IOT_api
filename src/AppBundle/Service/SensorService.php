@@ -24,10 +24,16 @@ class SensorService
         $qb->select('u,ru,fa')
            ->from(self::SENSOR_ENTITY_NAME, 'u')
            ->innerJoin('u.rules','ru')
-           ->innerJoin('u.farm','fa')
-           ->setFirstResult( $params['offset'] )
-           ->setMaxResults( $params['limit'] )
-           ->orderBy('u.' . $params['orderBy'], $params['order']);
+           ->innerJoin('u.farm','fa');
+        if(isset($params['offset'])){
+            $qb->setFirstResult( $params['offset'] );
+        }
+        if(isset($params['limit'])){
+            $qb->setMaxResults( $params['offset'] );   
+        }
+        if(isset($params['orderBy'])){
+            $qb->orderBy('u.' . $params['orderBy'], isset($params['order']) ? $params['order'] : 'asc');
+        }
         $paramsFilter = array();
         //only get filter allow column
         $filter = array(
