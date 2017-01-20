@@ -90,7 +90,7 @@ class UserService
 			$qb->andWhere($qb->expr()->like('u.' . $key, ':' . $key));
 			$qb->setParameter($key, '%'.$val.'%');
 		}
-    	$user = $qb->getQuery()->getArrayResult();
+    	$user = $qb->getQuery()->getResult();
     	return $user;
     }
     public function updateUser($userId, $params)

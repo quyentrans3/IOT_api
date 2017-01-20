@@ -18,7 +18,6 @@ class PushController extends Controller
     {
     	$response = new JsonResponse();
     	try{
-	    	$reportService = $this->get('report.services');
 	    	$serializer = $this->get('serializer');
 
 			$server_key = 'AAAAP5M8Qig:APA91bG7YVQ8yd8cUvN9W39Nl2X07HtZpI4dOPc8V95n3rQu_u4c_z9jKL74l6gKpwpDf_dQnd4Uf_hQ9GFBwtwetJvkm2gqTGPWj8z6ORjMlSQQhrGvdOwRT9jkyILh1OtPjS3ACkz8';

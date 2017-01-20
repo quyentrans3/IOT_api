@@ -34,42 +34,53 @@ class EmailNotificationCommand extends ContainerAwareCommand
 	    $userService = $this->getContainer()->get('user.services');
     	$params = array();   	
     	$sensors = $sensorService->getList($params);
-    	$users = $userService->getList($params);
     	foreach ($sensors as $key => $sensor)
         {
-        	$html = "Hi. This is to let you know that your sensor has now been alert: Humidity Alert on " . $sensor->getSensorName();
+        	if(!$sensor->getRules()->getEmail()) continue;
+        	$html = '';
+        	$subject = '';
         	$alert = false;
+        	$users = $userService->getList(array('farm' => $sensor->getFarm()->getFarmID()));
             if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity() || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
             {
+            	$subject = "Humidity Alert on ".$sensor->getSensorName();
             	$html = "Hi. This is to let you know that your sensor has now been alert: Humidity Alert on " . $sensor->getSensorName();
             	$alert = true;
             }
             //ok
             if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
             {
+            	$subject = "Temperature Alert on ".$sensor->getSensorName();
                 $html = "Hi. This is to let you know that your sensor has now been alert: Temperature Alert on " . $sensor->getSensorName();
                 $alert = true;
             }
 
             if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
             {
+            	$subject = "Battery Alert on ".$sensor->getSensorName();
                 $html = "Hi. This is to let you know that your sensor has now been alert: Battery Alert on " . $sensor->getSensorName();
                 $alert = true;
             }	
             //send email alert
-            if($alert == true){
-            	$messages = \Swift_Message::newInstance()
-			        ->setSubject("Humidity Alert on ".$sensor->getSensorName())
+            if($alert == true && $users){
+            	foreach($users as $user){
+            		$messages = \Swift_Message::newInstance()
+			        ->setSubject($subject)
 			        ->setFrom('send@admin.com')
-			        ->setTo($sensor->getFarm()->getAdmin()->getAdminEmail())
+			        ->setTo($user->getUserEmail())
 			        ->setBody($html,'text/html');
-			    if (!$this->getContainer()->get('mailer')->send($messages, $failures))
-				{
-				  	$output->writeln($failures);
-				}else{
-					$output->writeln('Send email notification success to: ' . $sensor->getFarm()->getAdmin()->getAdminName());
-				}
+				    if (!$this->getContainer()->get('mailer')->send($messages, $failures))
+					{
+					  	$output->writeln("Send email notification fail to : " . $user->getUserName() . " " . $user->getUserFirstName() . "\n Reason: " . $failures);
+					}else{
+						$output->writeln('Send email notification success to: ' . $user->getUserName() . " " . $user->getUserFirstName());
+					}
+            	}
             }		
         }
+        $output->writeln([
+            'End push',
+            '============'
+        ]);
     }
 }
