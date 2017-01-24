@@ -44,21 +44,21 @@ class EmailNotificationCommand extends ContainerAwareCommand
             if ($sensor->getSensorHumidity() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidity() > $sensor->getRules()->getMaxHumidity() || $sensor->getSensorHumidityZone2() < $sensor->getRules()->getMinHumidity()  || $sensor->getSensorHumidityZone2() > $sensor->getRules()->getMaxHumidity())
             {
             	$subject = "Humidity Alert on ".$sensor->getSensorName();
-            	$html = "Hi. This is to let you know that your sensor has now been alert: Humidity Alert on " . $sensor->getSensorName();
+            	$html = "Hi. This is to let you know that your sensor has now an alert for you to look at: Humidity Alert on " . $sensor->getSensorName();
             	$alert = true;
             }
             //ok
             if ($sensor->getSensorTemperature() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperature() > $sensor->getRules()->getMaxTemperature() || $sensor->getSensorTemperatureZone2() < $sensor->getRules()->getMinTemperature() || $sensor->getSensorTemperatureZone2() > $sensor->getRules()->getMaxTemperature())
             {
             	$subject = "Temperature Alert on ".$sensor->getSensorName();
-                $html = "Hi. This is to let you know that your sensor has now been alert: Temperature Alert on " . $sensor->getSensorName();
+                $html = "Hi. This is to let you know that your sensor has now an alert for you to look at: Temperature Alert on " . $sensor->getSensorName();
                 $alert = true;
             }
 
             if ($sensor->getSensorBattery() < $sensor->getRules()->getBattery())
             {
             	$subject = "Battery Alert on ".$sensor->getSensorName();
-                $html = "Hi. This is to let you know that your sensor has now been alert: Battery Alert on " . $sensor->getSensorName();
+                $html = "Hi. This is to let you know that your sensor has now an alert for you to look at: Battery Alert on " . $sensor->getSensorName();
                 $alert = true;
             }	
             //send email alert
